@@ -1,14 +1,19 @@
 import logo from "../assets/uber_logo.png";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import {useState,useEffect} from "react"
 import {useContext} from "react"
 import {UserContextValue} from "../context/userContext"
+import axios from "axios"
+
+
 const userRegister =()=>{
 const [firstName,setFirstName] = useState("")
 const [lastName,setLastName] = useState("")
 const [email,setEmail] = useState("")
 const [password,setPassword] = useState("")
-const {setUser} = useContext(UserContextValue)
+const {user,setUser} = useContext(UserContextValue)
+const navigate = useNavigate()
+
 
 
     return(
@@ -16,16 +21,29 @@ const {setUser} = useContext(UserContextValue)
       <img src={logo} className="size-20 ml-10 " />
 
       <form
-      onSubmit={(e)=>{
+      onSubmit={async (e)=>{
         e.preventDefault()
-        setUser({
-        fullName:{
-          firstName,
-          lastName
-        },
-            email,
-            password
-        })
+        const newUser = {
+          fullname:{
+            firstname:firstName,lastname:lastName
+          },
+          email,
+          password
+        }
+    try{
+const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`,newUser)
+  if(res.status==201){
+   setUser(res.data)
+   navigate("/home")
+  }
+    } catch(err){
+console.log(err.response.data)
+    }
+  
+// if(res.status==201){
+// setUser(res.data)
+// }
+
         setFirstName("")
         setLastName("")
         setEmail("")
