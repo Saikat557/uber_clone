@@ -83,9 +83,21 @@ onChange={(e)=>{
             className="bg-gray-100 w-full outline-none border-1 border-black py-1 px-2 rounded placeholder:text-base"
           />
         </div>
+        <div className="flex flex-col w-full ">
+          <label className="mb-3 text-2xl font-semibold mb-2">vehicle details</label>
+         <div>
+
+          <input
+          type="text"
+            placeholder="enter your password"
+            className="bg-gray-100 w-full outline-none border-1 border-black py-1 px-2 rounded placeholder:text-base"
+          />
+         </div>
+        
+        </div>
         <div>
           <button className="w-full py-2 bg-black text-white text-xl font-semibold rounded">
-            Submit
+           Create Captain Account
           </button>
           <p className="text-xs m-2">
             By creating an account or logging into our website/application, you
