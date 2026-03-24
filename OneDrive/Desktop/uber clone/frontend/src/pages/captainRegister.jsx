@@ -1,12 +1,22 @@
 import logo from "../assets/uber_logo.png";
-import { Link } from "react-router-dom";
-import {useState,useEffect} from "react"
+import { Link,useNavigate } from "react-router-dom";
+import {useState,useEffect,useContext} from "react"
+import axios from "axios"
+import {CaptainDataContext} from "../context/captainContext"
 const captainRegister =()=>{
     const [firstName,setFirstName] = useState("")
     const [lastName,setLastName] = useState("")
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
-    const [user,setUser] = useState({})
+   
+const [plateNumber,setPlateNumber] = useState("")
+const [capacity,setCapacity] = useState("")
+const [carType,setCarType] = useState("")
+const [color,setColor] = useState("")
+
+const {captain,setCaptain} = useContext(CaptainDataContext)
+const navigate = useNavigate()
+
     return(
         <div className="h-screen w-full ">
       <img src={logo} className="size-20 ml-10 " />
@@ -14,18 +24,40 @@ const captainRegister =()=>{
       <form
       onSubmit={(e)=>{
         e.preventDefault()
-        setUser({
-            fullName:{
-                firstName,
-                lastName
-            },
-            email,
-            password
-        })
+const captain = {
+  fullname:{
+    firstname:firstName,
+    lastname:lastName
+  },email,password,
+  vehicle:{
+    plateNumber,
+    capacity,
+    carType,
+    color
+  }
+}
+
+axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`,captain)
+.then((res)=>{
+ setCaptain(res.data.captain) 
+ localStorage.setItem("token",res.data.token)
+  navigate("/captain/home")
+})
+.catch((err)=>{
+  console.log(err.response)
+
+})
+
+
+        
         setFirstName("")
         setLastName("")
         setEmail("")
         setPassword("")
+        setPlateNumber("")
+        setCapacity("")
+        setCarType("")
+        setColor("")
         
         
       }} 
@@ -85,13 +117,49 @@ onChange={(e)=>{
         </div>
         <div className="flex flex-col w-full ">
           <label className="mb-3 text-2xl font-semibold mb-2">vehicle details</label>
-         <div>
+         
+         <div className="w-full grid grid-cols-2 gap-4">
 
           <input
+          value={plateNumber}
+          onChange={(e)=>{
+            setPlateNumber(e.target.value)
+          }}
           type="text"
-            placeholder="enter your password"
-            className="bg-gray-100 w-full outline-none border-1 border-black py-1 px-2 rounded placeholder:text-base"
+            placeholder="plateNumber"
+            className="w-1/2 bg-gray-100 w-full outline-none border-1 border-black py-1 px-2 rounded placeholder:text-base"
           />
+           <input
+            value={capacity}
+          onChange={(e)=>{
+            setCapacity(e.target.value)
+          }}
+          type="text"
+            placeholder="Capacity"
+            className="w-1/2 bg-gray-100 w-full outline-none border-1 border-black py-1 px-2 rounded placeholder:text-base"
+          />
+           <input
+            value={color}
+          onChange={(e)=>{
+            setColor(e.target.value)
+          }}
+          type="text"
+            placeholder="color"
+            className="w-1/2 bg-gray-100 w-full outline-none border-1 border-black py-1 px-2 rounded placeholder:text-base"
+          />
+          <select
+          value={carType}
+          onChange={(e)=>{
+            setCarType(e.target.value)
+           
+          }}
+          className="w-1/2 bg-gray-100 w-full outline-none border-1 border-black py-1 px-2 rounded placeholder:text-base"
+          >
+            <option>select your car</option>
+            <option>car</option>
+            <option>bike</option>
+            <option>toto</option>
+          </select>
          </div>
         
         </div>
@@ -108,7 +176,7 @@ onChange={(e)=>{
         <p className="">
           Already Have an account ?
           <span className="text-blue-800 font-bold underline">
-            <Link to="/login">Login Back</Link>
+            <Link to="/captain/login">Login Back</Link>
           </span>
         </p>
       </form>

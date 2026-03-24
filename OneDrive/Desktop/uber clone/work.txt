@@ -1,0 +1,3 @@
+i have done captain register form
+work due captain login , make captain homepage secure, captain logout route, make user homepage more secure
+
