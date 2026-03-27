@@ -4,19 +4,22 @@ import {RiArrowDownWideLine,RiUser3Fill} from "@remixicon/react"
 import uber_logo from "../assets/uber_logo.png"
 import LocationPanel from "../components/locationPanel.jsx"
 import VehiclePanel from "../components/vehiclePanel.jsx"
+import ConfirmRide from "../components/confirmRide.jsx"
+import LookingForDriver from "../components/LookingForDriver.jsx"
+import WaitingForDriver from "../components/waitingForDriver.jsx"
 const home = ()=>{
     const [panel,setPanel] = useState(false)
-    const [vehiclePanel,setVehiclepanel] = useState(false)
+    const [vehiclePanel,setVehiclePanel] = useState(false)
     const panelRef = useRef()
-
+    const [confirmRidePanel,setConfirmRidePanel] = useState(false)
+    const [lookingForDriverPanel,setLookingForDriverPanel] = useState(false)
+    const [waitingForDriverPanel,setWaitingForDriverPanel] = useState(true)
 
   
     return (
         <div className="h-screen w-screen relative overflow-hidden">
 <div
-onClick={()=>{
-       setVehiclepanel(false) 
-     }}
+
 id="top" className="h-full w-full">
     <img
      
@@ -46,7 +49,7 @@ id="top" className="h-full w-full">
     </div>
      <div className="w-full  -mt-4 h-full py-4 bg-white p-4 ">
       
-<LocationPanel setVehipanel={setVehiclepanel} setPanel={setPanel} />
+<LocationPanel setVehipanel={setVehiclePanel} setPanel={setPanel} />
        
    </div>
 
@@ -54,8 +57,11 @@ id="top" className="h-full w-full">
 </div>
 
 {/* vehicle panel */}
- <VehiclePanel vehiclePanel={vehiclePanel} />
-    
+ <VehiclePanel vehiclePanel={vehiclePanel} setVehiclePanel={setVehiclePanel} setConfirmRidePanel={setConfirmRidePanel}/>
+
+ <ConfirmRide confirmRidePanel={confirmRidePanel} setLookingForDriverPanel={setLookingForDriverPanel} setConfirmRidePanel={setConfirmRidePanel}/>  
+ <LookingForDriver lookingForDriverPanel={lookingForDriverPanel} /> 
+ <WaitingForDriver waitingForDriverPanel={waitingForDriverPanel} /> 
 </div>
 
 

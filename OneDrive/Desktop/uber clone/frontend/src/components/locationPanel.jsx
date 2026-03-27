@@ -17,7 +17,7 @@ return(
             props.setVehipanel(true)
             props.setPanel(false)
         }}
-        key={idx} className="w-full break-words active:border-black rounded-md border-2 border-gray-50 flex gap-3 items-center p-2 text-start">
+        key={idx} className="w-full mb-5 break-words active:border-black rounded-md border-2 border-gray-50 flex gap-3 items-center p-2 text-start">
            <RiMapPinFill className="size-7" />
             <p>{location}</p>
       
