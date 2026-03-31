@@ -1,73 +1,84 @@
-import {useContext,useState,useEffect,useRef} from "react"
-import {UserContextValue} from "../context/userContext"
-import {RiArrowDownWideLine,RiUser3Fill} from "@remixicon/react"
-import uber_logo from "../assets/uber_logo.png"
-import LocationPanel from "../components/locationPanel.jsx"
-import VehiclePanel from "../components/vehiclePanel.jsx"
-import ConfirmRide from "../components/confirmRide.jsx"
-import LookingForDriver from "../components/LookingForDriver.jsx"
-import WaitingForDriver from "../components/waitingForDriver.jsx"
-const home = ()=>{
-    const [panel,setPanel] = useState(false)
-    const [vehiclePanel,setVehiclePanel] = useState(false)
-    const panelRef = useRef()
-    const [confirmRidePanel,setConfirmRidePanel] = useState(false)
-    const [lookingForDriverPanel,setLookingForDriverPanel] = useState(false)
-    const [waitingForDriverPanel,setWaitingForDriverPanel] = useState(true)
+import { useContext, useState, useEffect, useRef } from "react";
+import { UserContextValue } from "../context/userContext";
+import { RiArrowDownWideLine, RiUser3Fill } from "@remixicon/react";
+import uber_logo from "../assets/uber_logo.png";
+import LocationPanel from "../components/locationPanel.jsx";
+import VehiclePanel from "../components/vehiclePanel.jsx";
+import ConfirmRide from "../components/confirmRide.jsx";
+import LookingForDriver from "../components/LookingForDriver.jsx";
+import WaitingForDriver from "../components/waitingForDriver.jsx";
+const home = () => {
+  const [panel, setPanel] = useState(false);
+  const [vehiclePanel, setVehiclePanel] = useState(false);
+  const panelRef = useRef();
+  const [confirmRidePanel, setConfirmRidePanel] = useState(false);
+  const [lookingForDriverPanel, setLookingForDriverPanel] = useState(false);
+  const [waitingForDriverPanel, setWaitingForDriverPanel] = useState(false);
 
-  
-    return (
-        <div className="h-screen w-screen relative overflow-hidden">
-<div
+  return (
+    <div className="h-screen w-screen relative overflow-hidden">
+      <div id="top" className="h-full w-full">
+        <img
+          className="size-15 absolute left-5"
+          src={uber_logo}
+          alt="...loading"
+        />
+        <img
+          className="w-full h-full object-cover"
+          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
+          alt="...loading"
+        />
+      </div>
 
-id="top" className="h-full w-full">
-    <img
-     
-    className="size-15 absolute left-5" src={uber_logo} alt="...loading"/>
-<img className="w-full h-full object-cover" src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="...loading" />
+      <div
+        id="panel"
+        className={`absolute bottom-0  transition-all duration-500 overflow-hidden ${panel ? "h-full" : "h-[30%]"}`}
+        ref={panelRef}
+      >
+        <div className={`min-h-[30vh] h-[30%] px-10 py-4  bg-white `}>
+          <RiArrowDownWideLine
+            className="absolute right-10 top-5"
+            onClick={(e) => {
+              setPanel(false);
+            }}
+          />
+          <h4 className="mb-10 text-4xl font-semibold">Find a Trip</h4>
+          <input
+            onClick={(e) => {
+              setPanel(true);
+            }}
+            className="w-full p-2 bg-[#eee] rounded-md mb-5"
+            placeholder="Add a pick up location"
+          />
+          <input
+            onClick={(e) => {
+              setPanel(true);
+            }}
+            className="w-full p-2 bg-[#eee] rounded-md "
+            placeholder="Add Destination"
+          />
+        </div>
+        <div className="w-full  -mt-4 h-full py-4 bg-white p-4 ">
+          <LocationPanel setVehipanel={setVehiclePanel} setPanel={setPanel} />
+        </div>
+      </div>
 
-</div>
+      {/* vehicle panel */}
+      <VehiclePanel
+        vehiclePanel={vehiclePanel}
+        setVehiclePanel={setVehiclePanel}
+        setConfirmRidePanel={setConfirmRidePanel}
+      />
 
-
-
-<div id="panel" className={`absolute bottom-0  transition-all duration-500 overflow-hidden ${panel?"h-full":"h-[30%]"}`} ref={panelRef}>
- <div className={`min-h-[30vh] h-[30%] px-10 py-4  bg-white `}>
-<RiArrowDownWideLine className="absolute right-10 top-5" onClick={(e)=>{
-    setPanel(false)
-}}/>
-<h4 className="mb-10 text-4xl font-semibold">Find a Trip</h4>
-     <input
-     onClick={(e)=>{
-        setPanel(true)
-     }}
-      className="w-full p-2 bg-[#eee] rounded-md mb-5" placeholder="Add a pick up location" />
-     <input
-      onClick={(e)=>{
-        setPanel(true)
-     }}
-      className="w-full p-2 bg-[#eee] rounded-md "  placeholder="Add Destination" />
+      <ConfirmRide
+        confirmRidePanel={confirmRidePanel}
+        setLookingForDriverPanel={setLookingForDriverPanel}
+        setConfirmRidePanel={setConfirmRidePanel}
+      />
+      <LookingForDriver lookingForDriverPanel={lookingForDriverPanel} />
+      <WaitingForDriver waitingForDriverPanel={waitingForDriverPanel} />
     </div>
-     <div className="w-full  -mt-4 h-full py-4 bg-white p-4 ">
-      
-<LocationPanel setVehipanel={setVehiclePanel} setPanel={setPanel} />
-       
-   </div>
+  );
+};
 
-   
-</div>
-
-{/* vehicle panel */}
- <VehiclePanel vehiclePanel={vehiclePanel} setVehiclePanel={setVehiclePanel} setConfirmRidePanel={setConfirmRidePanel}/>
-
- <ConfirmRide confirmRidePanel={confirmRidePanel} setLookingForDriverPanel={setLookingForDriverPanel} setConfirmRidePanel={setConfirmRidePanel}/>  
- <LookingForDriver lookingForDriverPanel={lookingForDriverPanel} /> 
- <WaitingForDriver waitingForDriverPanel={waitingForDriverPanel} /> 
-</div>
-
-
-
-     
-    )
-}
-
-export default home
+export default home;
