@@ -6,6 +6,7 @@ const vehiclePanel =(props)=>{
    <h4 className="text-2xl font-medium mb-3">Choose a Vehicle</h4>
 <div onClick={()=>{props.setConfirmRidePanel(true)
 props.setVehiclePanel(false)
+props.setVehicle("car")
 }
 
 } className="w-full flex items-start justify-between  my-3 border-2 border-gray-100 p-2 rounded-md active:border-black">
@@ -15,11 +16,12 @@ props.setVehiclePanel(false)
     <p>Car</p>
     <h4 className="text-gray-400">premium ride in luxury car</h4>
    </div>
-   <div className="text-xl font-medium">₹198</div>
+   <div className="text-xl font-medium">₹{props.fare.car}</div>
 </div>
 
 <div onClick={()=>{props.setConfirmRidePanel(true)
    props.setVehiclePanel(false)
+   props.setVehicle("bike")
 }}  className="w-full flex items-start justify-between my-3 border-2 border-gray-100 p-2 rounded-md active:border-black">
     <img className="h-20 mr-3" src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=552/height=552/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy85NTM4NTEyZC1mZGUxLTRmNzMtYmQ1MS05Y2VmZjRlMjU0ZjEucG5n" />
  <div className="">
@@ -27,11 +29,12 @@ props.setVehiclePanel(false)
     <p>Bike</p>
     <h4 className="text-gray-400">premium ride in luxury car</h4>
    </div>
-   <div className="text-xl font-medium">₹68</div>
+   <div className="text-xl font-medium">₹{props.fare.bike}</div>
 </div>
 
 <div onClick={()=>{props.setConfirmRidePanel(true)
    props.setVehiclePanel(false)
+   props.setVehicle("toto")
 }}  className="w-full flex items-start justify-between border-2 border-gray-100 p-2 rounded-md my-3 active:border-black">
     <img className="h-20 mr-3" src="https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/TukTuk_RedWhite.png" />
  <div className="">
@@ -39,7 +42,7 @@ props.setVehiclePanel(false)
     <p>ToTo</p>
     <h4 className="text-gray-400">premium ride in luxury car</h4>
    </div>
-   <div className="text-xl font-medium">₹30</div>
+   <div className="text-xl font-medium">₹{props.fare.toto}</div>
 </div>
 
   
